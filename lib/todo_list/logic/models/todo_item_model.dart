@@ -1,7 +1,7 @@
 class TodoItemModel {
   final String id;
-  final String content;
   final String createdAt;
+  String content;
 
   TodoItemModel(this.id, this.content, this.createdAt);
 

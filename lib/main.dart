@@ -1,5 +1,6 @@
-import 'package:finance_record/todo_list/index.dart';
 import 'package:flutter/material.dart';
+
+import 'todo_list/view/index.dart';
 
 void main() {
   runApp(const App());

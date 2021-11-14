@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class AddTodoDialog extends StatelessWidget {
   final TextEditingController _textFieldController = TextEditingController();
-  final Function _addTodoItem;
+  final void Function(String) _addTodoItem;
 
   AddTodoDialog(this._addTodoItem, {Key? key}) : super(key: key);
 
@@ -16,7 +16,7 @@ class AddTodoDialog extends StatelessWidget {
         decoration: const InputDecoration(hintText: 'Enter task here'),
       ),
       actions: <Widget>[
-        // add button
+        // Add button
         TextButton(
           child: const Text('ADD'),
           onPressed: () {
