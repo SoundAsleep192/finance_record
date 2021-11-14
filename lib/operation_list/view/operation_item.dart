@@ -1,25 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:finance_record/todo_list/logic/models/todo_item_model.dart';
+import 'package:finance_record/operation_list/logic/models/operation.dart';
 
 import 'dialogs/delete_dialog.dart';
 import 'dialogs/edit_dialog.dart';
 
-class TodoItem extends StatelessWidget {
-  final TodoItemModel _model;
+class OperationItem extends StatelessWidget {
+  final Operation _model;
   final void Function(String id) _deleteItem;
-  final void Function(String id, String content) _editItem;
+  final void Function(Operation changedItem) _editItem;
 
-  const TodoItem(this._model, this._deleteItem, this._editItem, {Key? key})
+  const OperationItem(this._model, this._deleteItem, this._editItem, {Key? key})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        leading: const Icon(Icons.summarize_outlined),
-        title: Text(_model.content),
-        subtitle: Text('Created at: ' + _model.createdAt),
+        leading: const Icon(Icons.monetization_on),
+        title: Text(_model.amount.toString()),
+        subtitle: Text(_model.comment),
         trailing: Wrap(children: [
           IconButton(
             icon: const Icon(Icons.edit_outlined),
@@ -37,7 +37,7 @@ class TodoItem extends StatelessWidget {
     return showDialog<AlertDialog>(
         context: context,
         builder: (BuildContext context) {
-          return DeleteTodoDialog(() => _deleteItem(itemId));
+          return DeleteDialog(() => _deleteItem(itemId));
         });
   }
 
@@ -45,8 +45,7 @@ class TodoItem extends StatelessWidget {
     return showDialog<AlertDialog>(
         context: context,
         builder: (BuildContext context) {
-          return EditTodoDialog(
-              _model.content, (text) => _editItem(itemId, text));
+          return EditDialog(_model, _editItem);
         });
   }
 }

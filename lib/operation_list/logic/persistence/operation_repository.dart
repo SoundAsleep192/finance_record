@@ -2,30 +2,30 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:finance_record/todo_list/logic/models/todo_item_model.dart';
+import 'package:finance_record/operation_list/logic/models/operation.dart';
 
-class TodoItemsRepository {
-  final _key = 'todos';
+class OperationRepository {
+  final _key = 'operations';
 
-  TodoItemsRepository();
+  OperationRepository();
 
-  Future<Map<String, TodoItemModel>> getItems() async {
+  Future<Map<String, Operation>> getItems() async {
     var prefs = await SharedPreferences.getInstance();
 
-    Map<String, TodoItemModel> parsedItems = {};
+    Map<String, Operation> parsedItems = {};
 
     Map<String, dynamic> storedItems =
         json.decode(prefs.getString(_key) ?? '{}');
 
     for (var storedItem in storedItems.entries) {
-      var decodedItem = TodoItemModel.fromJson(storedItem.value);
+      var decodedItem = Operation.fromJson(storedItem.value);
       parsedItems[storedItem.key] = decodedItem;
     }
 
     return parsedItems;
   }
 
-  void saveItems(Map<String, TodoItemModel> items) async {
+  void saveItems(Map<String, Operation> items) async {
     var prefs = await SharedPreferences.getInstance();
 
     prefs.setString(_key, json.encode(items));

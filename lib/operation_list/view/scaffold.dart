@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'package:finance_record/todo_list/logic/models/todo_item_model.dart';
+import 'package:finance_record/operation_list/logic/models/operation.dart';
 
 import 'dialogs/add_dialog.dart';
-import 'todo_item.dart';
+import 'operation_item.dart';
 
-class TodoListScaffold extends StatelessWidget {
-  final Map<String, TodoItemModel> _itemModels;
-  final void Function(String content) _addItem;
+class OperationListScaffold extends StatelessWidget {
+  final Map<String, Operation> _itemModels;
+  final void Function(int amount, String categoryId, String comment) _addItem;
   final void Function(String id) _deleteItem;
-  final void Function(String id, String content) _editItem;
+  final void Function(Operation changedItem) _editItem;
 
-  const TodoListScaffold(
+  const OperationListScaffold(
       this._itemModels, this._addItem, this._deleteItem, this._editItem,
       {Key? key})
       : super(key: key);
@@ -19,10 +19,11 @@ class TodoListScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('To-Do List')),
+      appBar: AppBar(title: const Text('Operation list')),
       body: ListView(
           children: _itemModels.values
-              .map((itemModel) => TodoItem(itemModel, _deleteItem, _editItem))
+              .map((itemModel) =>
+                  OperationItem(itemModel, _deleteItem, _editItem))
               .toList()),
       floatingActionButton: FloatingActionButton(
           onPressed: () => _displayAddDialog(context),
@@ -35,7 +36,7 @@ class TodoListScaffold extends StatelessWidget {
     return showDialog<AlertDialog>(
         context: context,
         builder: (BuildContext context) {
-          return AddTodoDialog(_addItem);
+          return AddDialog(_addItem);
         });
   }
 }
