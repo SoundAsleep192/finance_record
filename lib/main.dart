@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'todo_list/view/index.dart';
+import 'operation_list/view/index.dart';
 
 void main() {
   runApp(const App());
@@ -11,6 +11,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: TodoList());
+    return const MaterialApp(home: OperationList());
   }
 }
